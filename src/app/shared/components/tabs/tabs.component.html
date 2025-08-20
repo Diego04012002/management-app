@@ -1,0 +1,13 @@
+<div [class]="{'mb-8': isPrincipalHeader(), 'px-8': !isPrincipalHeader()}">
+  <div class="grid bg-black/30 backdrop-blur-xl border border-white/20 rounded-2xl p-1.5 shadow-xl" [class]="{'grid-cols-6': isPrincipalHeader(), 'grid-cols-2': !isPrincipalHeader()}">
+    @for (item of tabList(); track $index) {
+      <button
+        [routerLinkActive]="item.class"
+        [routerLink]="[`/${item.path}`]"
+        class="flex items-center justify-center px-4 py-3 rounded-xl transition-all duration-300 text-slate-300 hover:text-white">
+        <img [src]="'./public/images/'+item.image" alt="">
+        {{item.label}}
+      </button>
+    }
+  </div>
+</div>

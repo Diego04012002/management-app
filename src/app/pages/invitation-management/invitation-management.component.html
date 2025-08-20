@@ -1,0 +1,112 @@
+
+<div class="absolute bottom-100  right-0 left-0 flex items-center justify-center z-20">
+  <div class="bg-black/70  px-8 py-4 rounded-xl shadow-2xl text-white text-4xl font-bold border border-white/20 rotate-12">
+    EN CONSTRUCCIÓN
+  </div>
+</div>
+
+<div class="relative bg-gradient-to-br from-slate-900/60 to-teal-900/60 border border-teal-500/30 backdrop-blur-xl shadow-2xl rounded-2xl opacity-50">
+  <div class="p-8 border-b border-white/10">
+    <div class="flex items-center space-x-4">
+      <div class="w-12 h-12 bg-gradient-to-br from-teal-500 to-emerald-500 rounded-2xl flex items-center justify-center shadow-xl shadow-teal-500/25">
+        <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+        </svg>
+      </div>
+      <div>
+        <h2 class="text-3xl font-bold text-white">Gestión de Invitaciones Corporativas</h2>
+        <p class="text-slate-300 text-lg">Sistema de invitaciones para eventos empresariales</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="p-8 space-y-8">
+    <!-- Formulario para agregar invitación -->
+    <div class="bg-black/20 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
+      <h3 class="text-lg font-medium text-white mb-4 flex items-center">
+        <svg class="h-5 w-5 mr-2 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+        </svg>
+        Nueva Invitación Empresarial
+      </h3>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div>
+          <label class="block text-gray-300 font-medium mb-2">Evento Corporativo</label>
+          <select class="w-full bg-white/10 border border-white/20 text-white focus:border-teal-400 focus:ring-teal-400/20 rounded-xl px-4 py-3">
+            <option value="">Seleccionar evento</option>
+            <option value="1">Reunión de Proyecto Q1</option>
+            <option value="2">Capacitación Empresarial</option>
+            <option value="3">Presentación Anual</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-gray-300 font-medium mb-2">Nombre del Invitado</label>
+          <input type="text" placeholder="Nombre completo"
+                 class="w-full bg-white/10 border border-white/20 text-white placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 rounded-xl px-4 py-3">
+        </div>
+        <div>
+          <label class="block text-gray-300 font-medium mb-2">Email del Invitado</label>
+          <input type="email" placeholder="email@ejemplo.com"
+                 class="w-full bg-white/10 border border-white/20 text-white placeholder:text-gray-400 focus:border-teal-400 focus:ring-teal-400/20 rounded-xl px-4 py-3">
+        </div>
+        <div class="flex items-end">
+          <button class="w-full bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white border-0 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 px-6 py-3 font-medium flex items-center justify-center">
+            <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+            </svg>
+            Enviar Invitación
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lista de invitaciones por evento -->
+    <div class="space-y-6">
+      <div class="bg-black/20 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
+        <h3 class="text-lg font-medium text-white mb-4">Reunión de Proyecto Q1</h3>
+        <div class="overflow-x-auto">
+          <table class="w-full">
+            <thead>
+              <tr class="border-b border-white/10">
+                <th class="text-left p-4 text-gray-300 font-medium">Invitado</th>
+                <th class="text-left p-4 text-gray-300 font-medium">Email</th>
+                <th class="text-left p-4 text-gray-300 font-medium">Estado</th>
+                <th class="text-left p-4 text-gray-300 font-medium">Enviado</th>
+                <th class="text-left p-4 text-gray-300 font-medium">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (invitation of invitations; track $index) {
+                <tr class="border-b border-white/10 hover:bg-white/5">
+                  <td class="p-4 font-medium text-white">{{invitation.guestName}}</td>
+                  <td class="p-4 text-gray-300">{{invitation.guestEmail}}</td>
+                  <td class="p-4">
+                    <span [class]="'inline-flex items-center px-3 py-1 rounded-full text-sm font-medium border ' + getStatusBadgeClass(invitation.status)">
+                      {{getStatusText(invitation.status)}}
+                    </span>
+                  </td>
+                  <td class="p-4 text-gray-300">{{invitation.sentAt}}</td>
+                  <td class="p-4">
+                    <div class="flex space-x-2">
+                      <button class="bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white border-0 rounded-lg px-3 py-2 text-sm">
+                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                        </svg>
+                      </button>
+                      <button class="bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-lg px-3 py-2 text-sm">
+                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
