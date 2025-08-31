@@ -1,0 +1,61 @@
+<div class="bg-gradient-to-br from-black/30 to-slate-900/30 backdrop-blur-sm rounded-3xl p-8 border border-white/20 shadow-2xl">
+  <h3 class="text-2xl font-bold text-white mb-8 flex items-center">
+    <svg class="h-6 w-6 mr-3 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+    </svg>
+    Control de Acceso de Empleados
+  </h3>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 min-h-fit">
+    @if (!isLoading() || !isFirstLoad()) {
+      @for (employee of employeesInput(); track $index) {
+        <div
+            class="max-h-fit bg-gradient-to-br from-white/5 to-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:bg-gradient-to-br hover:from-white/10 hover:to-white/15 transition-all duration-300 shadow-lg hover:shadow-xl">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-4 flex-1">
+              <div class="h-14 w-14 bg-gradient-to-br from-amber-500 to-orange-500 shadow-lg shadow-amber-500/25 rounded-full flex items-center justify-center">
+                <span class="text-white text-lg font-bold">{{"JP"}}</span>
+              </div>
+              <div class="flex-1 min-w-0">
+                <h4 class="font-bold text-white text-lg truncate">{{employee.fullName}}</h4>
+                <p class="text-sm text-slate-300 truncate font-medium">{{employee.department}}</p>
+                <div class="flex items-center space-x-4 mt-2">
+                  <span [class]="'inline-flex items-center px-3 py-1 rounded-full text-sm font-medium border ' + getStatusBadgeClass(employee.checkAction)">
+                    {{getStatusText(employee.checkAction)}}
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="flex flex-col items-end space-y-3 ml-6">
+              <button (click)="changeStatus(employee.id)" [class]="'text-white border-0 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 font-medium px-6 py-2 flex items-center ' + getActionButtonClass(employee.checkAction)">
+                @if(employee.checkAction=="CHECK_IN"){
+                  <svg  class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                }@else {
+                  <svg  class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                }
+                {{getActionText(employee.checkAction)}}
+              </button>
+              <div class="text-right">
+                <p class="text-xs text-slate-500 font-medium mb-0.5">Último registro:</p>
+                <p class="text-xs text-slate-300 font-mono bg-black/20 px-2 py-1 rounded-lg">
+                  {{employee.occuredAt ? (employee.occuredAt | date: 'yyyy-MM-dd HH:mm') : 'Sin registro' }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    }
+    @if(isLoading() && isFirstLoad()){
+      <app-skeleton-checkin-card/>
+      <app-skeleton-checkin-card/>
+      <app-skeleton-checkin-card/>
+      <app-skeleton-checkin-card/>
+    }
+  </div>
+</div>
+<app-pagination/>

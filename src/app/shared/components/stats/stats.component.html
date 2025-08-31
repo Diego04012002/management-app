@@ -1,5 +1,6 @@
 <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
   <div
+    routerLink="/empleados/list"
     class="bg-gradient-to-br from-blue-900/50 to-cyan-900/50 border border-blue-400/30 backdrop-blur-xl shadow-xl shadow-blue-500/10 rounded-2xl p-6"
   >
     <div class="flex items-center justify-between mb-4">
@@ -31,7 +32,7 @@
     <p class="text-xs text-blue-300 mb-3">Registrados en sistema</p>
     <div class="flex items-center">
       <svg
-        class="h-3 w-3 text-emerald-400 mr-1"
+        class="h-3 w-3 text-red-400 mr-1"
         fill="none"
         stroke="currentColor"
         viewBox="0 0 24 24"
@@ -43,13 +44,14 @@
           d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
         ></path>
       </svg>
-      <span class="text-xs text-emerald-400 font-medium"
-        >Sistema operativo</span
+      <span class="text-xs text-red-400 font-medium"
+        >Sistema Apagado</span
       >
     </div>
   </div>
 
   <div
+    routerLink="/checkinout/list"
     class="bg-gradient-to-br from-emerald-900/50 to-green-900/50 border border-emerald-400/30 backdrop-blur-xl shadow-xl shadow-emerald-500/10 rounded-2xl p-6"
   >
     <div class="flex items-center justify-between mb-4">
@@ -98,6 +100,7 @@
   </div>
 
   <div
+    routerLink="/checkinout/logs"
     class="bg-gradient-to-br from-amber-900/50 to-orange-900/50 border border-amber-400/30 backdrop-blur-xl shadow-xl shadow-amber-500/10 rounded-2xl p-6"
   >
     <div class="flex items-center justify-between mb-4">
@@ -146,6 +149,7 @@
   </div>
 
   <div
+    routerLink="/eventos/list"
     class="bg-gradient-to-br from-purple-900/50 to-pink-900/50 border border-purple-400/30 backdrop-blur-xl shadow-xl shadow-purple-500/10 rounded-2xl p-6"
   >
     <div class="flex items-center justify-between mb-4">

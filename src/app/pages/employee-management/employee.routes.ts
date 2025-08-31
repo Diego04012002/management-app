@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { EmployeeLayoutComponent } from '../../layouts/employee-layout/employee-layout.component';
-import { EmployeeCreateComponent } from '../../components/employee-management/components/employee-create/employee-create.component';
-import { EmployeeListComponent } from '../../components/employee-management/components/employee-list/employee-list.component';
+import { EmployeeCreateComponent } from '../../modules/employee-management/components/employee-create/employee-create.component';
+import { EmployeeListComponent } from '../../modules/employee-management/components/employee-list/employee-list.component';
 
 export const employeeRoute: Routes = [
   {

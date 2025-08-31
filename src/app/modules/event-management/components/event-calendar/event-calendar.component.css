@@ -1,0 +1,151 @@
+/* ======= FullCalendar Theme con ::ng-deep (mejorado) ======= */
+
+/* Contenedor principal del calendario */
+:host ::ng-deep .fc {
+  border-radius: 1rem !important;
+  overflow: hidden !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+}
+
+:host ::ng-deep td {
+
+  border: 0rem solid #ad46ff !important;
+}
+:host ::ng-deep th {
+  border: 0rem solid #ad46ff !important;
+}
+
+:host ::ng-deep .fc-toolbar-title {
+  font-weight: 700 !important;
+}
+
+/* Grid interno */
+:host ::ng-deep .fc .fc-scrollgrid {
+  border-radius: 1rem !important;
+  border: 0.25rem solid #ad46ff !important;
+  overflow: hidden !important;
+}
+/* Fila de cabecera (días de la semana) */
+:host ::ng-deep .fc .fc-col-header-cell:nth-child(1)
+{
+  background: linear-gradient(90deg, #9c27b0, #e91e63) !important;
+  color: #fff !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  border: none !important;
+  border-radius: 12px 0 0 0 !important;
+  overflow: hidden !important;
+  overflow: hidden !important;
+}
+
+:host ::ng-deep .fc .fc-col-header-cell:nth-child(7){
+  background: linear-gradient(90deg, #9c27b0, #e91e63) !important;
+  color: #fff !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  border: none !important;
+  border-radius: 0 12px 0 0 !important;
+  overflow: hidden !important;
+  overflow: hidden !important;
+}
+
+:host ::ng-deep .fc .fc-col-header-cell:nth-child(2),
+:host ::ng-deep .fc .fc-col-header-cell:nth-child(3),
+:host ::ng-deep .fc .fc-col-header-cell:nth-child(4),
+:host ::ng-deep .fc .fc-col-header-cell:nth-child(5),
+:host ::ng-deep .fc .fc-col-header-cell:nth-child(6)
+{
+  background: linear-gradient(90deg, #9c27b0, #e91e63) !important;
+  color: #fff !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  border: none !important;
+  /* border-radius: 12px !important; */
+  overflow: hidden !important;
+}
+
+:host ::ng-deep .fc .fc-toolbar {
+  background: linear-gradient(90deg, #9c27b0, #e91e63) !important;
+  color: #fff !important;
+  border-radius: 1rem !important;
+  padding: 0.5rem !important;
+}
+
+/* Bordes de las celdas */
+:host ::ng-deep .fc .fc-daygrid-day {
+  border: 1px solid rgba(156, 39, 176, 0.2) !important;
+  transition: background 0.2s ease-in-out !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  margin: 2px !important;
+}
+
+/* Botones */
+:host ::ng-deep .fc .fc-toolbar-chunk {
+  display: flex !important;
+}
+
+:host ::ng-deep .fc .fc-button-group {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 0.5rem !important;
+}
+
+:host ::ng-deep .fc .fc-button {
+  background: #fff !important;
+  border: none !important;
+  color: #9c27b0 !important;
+  font-weight: 500 !important;
+  border-radius: 12px !important;
+  padding: 0.4rem 0.8rem !important;
+  transition: 0.2s ease !important;
+}
+
+:host ::ng-deep .fc .fc-button:hover {
+  background: #f3e5f5 !important;
+}
+
+:host ::ng-deep .fc .fc-button.fc-button-active {
+  background: #e91e63 !important;
+  color: #fff !important;
+}
+
+/* Hover en las celdas */
+:host ::ng-deep .fc .fc-daygrid-day:hover {
+  background: rgba(233, 30, 99, 0.08) !important;
+}
+
+/* Eventos */
+:host ::ng-deep .fc .fc-event {
+  border-radius: 12px !important;
+  padding: 0.5rem !important;
+}
+
+/* Eventos con efecto hover */
+:host ::ng-deep .fc .fc-event:hover {
+  filter: brightness(1.1) !important;
+  transform: scale(1.02) !important;
+  transition: all 0.2s ease-in-out !important;
+}
+
+/* Día actual (refuerzo visual con sombra) */
+:host ::ng-deep .fc .fc-day-today {
+  background: rgba(156, 39, 176, 0.15) !important;
+  box-shadow: inset 0 0 6px rgba(233, 30, 99, 0.4) !important;
+  border-radius: 12px !important;
+}
+
+/* Texto de números de día */
+:host ::ng-deep .fc .fc-daygrid-day-number {
+  color: #fff !important;
+  font-weight: 600 !important;
+}
+
+/* Scrollbar personalizada dentro del calendario */
+:host ::ng-deep .fc-scroller::-webkit-scrollbar {
+  width: 8px !important;
+  height: 8px !important;
+}

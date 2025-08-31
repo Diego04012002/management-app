@@ -5,34 +5,50 @@ import { EventManagementComponent } from './pages/event-management/event-managem
 import { InvitationManagementComponent } from './pages/invitation-management/invitation-management.component';
 import { CheckInSystemComponent } from './pages/checkin-system/checkin-system.component';
 import { AccessRecordsComponent } from './pages/access-records/access-records.component';
+import { MainPageComponent } from './pages/main-page/main-page.component';
 
 export const routes: Routes = [
   {
-    path:"perfil",
-    component:UserProfileComponent
+    path: 'main',
+    component: MainPageComponent,
+    children: [
+      {
+        path: 'perfil',
+        component: UserProfileComponent,
+      },
+      {
+        path: 'empleados',
+        loadChildren: () =>
+          import('./pages/employee-management/employee.routes'),
+      },
+      {
+        path: 'eventos',
+        loadChildren: () => import('./pages/event-management/events.routes'),
+      },
+      {
+        path: 'invitaciones',
+        component: InvitationManagementComponent,
+      },
+      {
+        path: 'checkinout',
+        component: CheckInSystemComponent,
+      },
+      {
+        path: 'registros',
+        component: AccessRecordsComponent,
+      },
+      {
+        path: '**',
+        redirectTo: 'perfil',
+      }
+    ],
   },
   {
-    path:"empleados",
-    loadChildren:() => import("./pages/employee-management/employee.routes")
+    path: 'auth',
+    loadChildren: () => import('./pages/auth-page/auth.routes'),
   },
   {
-    path:"eventos",
-    loadChildren:() => import("./pages/event-management/events.routes")
+    path: '**',
+    redirectTo: 'main',
   },
-  {
-    path:"invitaciones",
-    component:InvitationManagementComponent
-  },
-  {
-    path:"checkinout",
-    component:CheckInSystemComponent
-  },
-  {
-    path:"registros",
-    component:AccessRecordsComponent
-  },
-  {
-    path:"**",
-    redirectTo:"perfil"
-  }
 ];

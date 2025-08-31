@@ -6,23 +6,10 @@
   <!-- Header -->
   <app-header />
 
-  <div class="relative z-10 p-6">
-    <div class="max-w-7xl mx-auto">
-      <!-- Hero Section -->
-      <!-- <app-hero/> -->
-
-      <!-- Estadísticas -->
-      <app-stats />
-
-      <!-- Tabs -->
-      <app-tabs [tabList]="tabs" [isPrincipalHeader]="true" />
-
-      <div class="">
-        <router-outlet />
-      </div>
-    </div>
+  <div class="flex justify-center items-center min-h-[calc(100vh-64px-64px)]">
+    <router-outlet />
   </div>
-
   <!-- Footer -->
   <app-footer />
 </div>
+

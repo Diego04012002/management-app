@@ -1,0 +1,93 @@
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+  <div
+    class="bg-gradient-to-br from-emerald-900/40 to-green-900/40 backdrop-blur-sm rounded-2xl p-6 border border-emerald-400/30 shadow-xl shadow-emerald-500/10"
+  >
+    <div class="flex items-center space-x-4">
+      <div
+        class="w-14 h-14 bg-gradient-to-br from-emerald-500/30 to-green-500/30 rounded-2xl flex items-center justify-center"
+      >
+        <svg
+          class="h-7 w-7 text-emerald-400"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+          ></path>
+        </svg>
+      </div>
+      <div>
+        <p class="text-3xl font-bold text-white">
+          {{ employeesNumber()?.checkIns ? employeesNumber().checkIns : '0' }}
+        </p>
+        <p class="text-sm text-emerald-300 font-medium">Empleados en oficina</p>
+        <div class="flex items-center mt-1">
+          <svg
+            class="h-3 w-3 text-emerald-400 mr-1"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+            ></path>
+          </svg>
+          <span class="text-xs text-emerald-400">Activo</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="bg-gradient-to-br from-red-900/40 to-rose-900/40 backdrop-blur-sm rounded-2xl p-6 border border-red-400/30 shadow-xl shadow-red-500/10"
+  >
+    <div class="flex items-center space-x-4">
+      <div
+        class="w-14 h-14 bg-gradient-to-br from-red-500/30 to-rose-500/30 rounded-2xl flex items-center justify-center"
+      >
+        <svg
+          class="h-7 w-7 text-red-400"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+          ></path>
+        </svg>
+      </div>
+      <div>
+        <p class="text-3xl font-bold text-white">
+          {{ employeesNumber()?.checkOuts ? employeesNumber().checkOuts : '0' }}
+        </p>
+        <p class="text-sm text-red-300 font-medium">Fuera de oficina</p>
+        <div class="flex items-center mt-1">
+          <svg
+            class="h-3 w-3 text-red-400 mr-1"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+            ></path>
+          </svg>
+          <span class="text-xs text-red-400">Registrado</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

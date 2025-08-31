@@ -1,8 +1,12 @@
 import { Component } from '@angular/core';
+import { LoginLogutComponent } from "../../modules/auth/components/login-logut/logut.component";
+import { UserCheckinoutComponent } from '../../modules/user-profile/components/user-checkinout/user-checkinout.component';
+import { UserInformationComponent } from '../../modules/user-profile/components/user-information/user-information.component';
 
 @Component({
   selector: 'app-user-profile',
-  templateUrl: './user-profile.component.html'
+  templateUrl: './user-profile.component.html',
+  imports: [UserInformationComponent, UserCheckinoutComponent, LoginLogutComponent]
 })
 export class UserProfileComponent {
   user = {

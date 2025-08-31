@@ -11,16 +11,16 @@ export class EmployeeManagementComponent {
 
   tabs=[
     {
-      path:"empleados/create",
+      path:"/main/empleados/create",
       label:"Crear Empleado",
-      class:"bg-gradient-to-r from-blue-600 to-cyan-600",
-      image:"employee.svg"
+      class:"bg-gradient-to-l from-blue-400 to-cyan-500",
+      image:''
     },
     {
-      path:"empleados/list",
+      path:"/main/empleados/list",
       label:"Lista de Empleados",
-      class:"bg-gradient-to-r from-purple-600 to-pink-600",
-      image:"employee.svg"
+      class:"bg-gradient-to-r from-blue-500 to-cyan-400",
+      image:''
     }
   ]
 

@@ -1,0 +1,16 @@
+<div class="relative z-10 p-6">
+  <div class="max-w-7xl min-w-7xl mx-auto">
+    <!-- Hero Section -->
+    <!-- <app-hero/> -->
+
+    <!-- Estadísticas -->
+    <app-stats />
+
+    <!-- Tabs -->
+    <app-tabs [tabList]="tabs" [isPrincipalHeader]="true" />
+
+    <div class="">
+      <router-outlet />
+    </div>
+  </div>
+</div>

@@ -1,13 +1,24 @@
-<div [class]="{'mb-8': isPrincipalHeader(), 'px-8': !isPrincipalHeader()}">
-  <div class="grid bg-black/30 backdrop-blur-xl border border-white/20 rounded-2xl p-1.5 shadow-xl" [class]="{'grid-cols-6': isPrincipalHeader(), 'grid-cols-2': !isPrincipalHeader()}">
+<div [class]="{ 'mb-8': isPrincipalHeader(), 'px-8': !isPrincipalHeader() }">
+  <div
+    [ngClass]="{
+      'grid-cols-2': tabList().length === 2,
+      'grid-cols-3': tabList().length === 3,
+      'grid-cols-6': tabList().length === 6
+    }"
+    class="grid bg-black/30 backdrop-blur-xl border border-white/20 rounded-2xl p-1.5 shadow-xl"
+  >
     @for (item of tabList(); track $index) {
-      <button
-        [routerLinkActive]="item.class"
-        [routerLink]="[`/${item.path}`]"
-        class="flex items-center justify-center px-4 py-3 rounded-xl transition-all duration-300 text-slate-300 hover:text-white">
-        <img [src]="'./public/images/'+item.image" alt="">
-        {{item.label}}
-      </button>
+    <button
+      [routerLinkActive]="item.class"
+      [routerLink]="[`/${item.path}`]"
+      class="flex items-center justify-center px-4 py-3 gap-2 rounded-xl transition-all duration-300 text-slate-300 hover:text-white"
+    >
+      @if(item.image){
+        <img [src]="`./assets/images/${item.image}`" [alt]="item.label" class="size-6"/>
+
+      }
+      {{ item.label }}
+    </button>
     }
   </div>
 </div>
