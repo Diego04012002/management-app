@@ -19,12 +19,12 @@
       </div>
     </div>
     <!-- Información del usuario -->
-    <app-user-information [user]="user" />
+    <app-user-information [user]="userResource.value()!" />
   </div>
 
   <!-- Check-In Manual -->
-  <app-user-checkinout />
+  <app-user-checkinout [isCheckIn]="isCheckIn()"/>
 
   <!-- Logout Section -->
-  <app-login-logut [user]="user" />
+  <app-login-logut [user]="userResource.value()!" />
 </div>

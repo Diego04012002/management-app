@@ -1,7 +1,8 @@
 export interface Record{
-  timestamp:string
-  name:string
-  type:string
-  action:string
+  occuredAt:Date
+  fullName:string
+  role:string
+  checkAction:string
+  department:string
 
 }

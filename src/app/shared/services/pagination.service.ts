@@ -30,4 +30,10 @@ export class PaginationService {
   get numberOfPagesValue() {
     return this.numberOfPages.value;
   }
+
+  resetValues() {
+    this.page.next(0);
+    this.size.next(10);
+    this.numberOfPages.next(0);
+  }
 }

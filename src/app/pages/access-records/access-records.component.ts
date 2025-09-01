@@ -1,40 +1,39 @@
-import { Component } from "@angular/core"
-import { RegisterListComponent } from "../../modules/access-record/components/register-list/register-list.component";
+import { Component, inject, OnDestroy } from '@angular/core';
+import { RegisterListComponent } from '../../modules/access-record/components/register-list/register-list.component';
+import { rxResource, toSignal } from '@angular/core/rxjs-interop';
+import { CheckInService } from '../../modules/checkin-system/services/checkin.service';
+import { PaginationService } from '../../shared/services/pagination.service';
+import { SearchService } from '../../shared/services/search.service';
 
 @Component({
-  selector: "app-access-records",
-  templateUrl: "./access-records.component.html",
+  selector: 'app-access-records',
+  templateUrl: './access-records.component.html',
   imports: [RegisterListComponent],
 })
-export class AccessRecordsComponent {
-  records = [
-    {
-      id: "1",
-      timestamp: "15/01/2024 09:00:00",
-      name: "Juan Pérez",
-      type: "employee",
-      action: "check-in",
+export class AccessRecordsComponent implements OnDestroy {
+  checkInsService = inject(CheckInService);
+  paginationService = inject(PaginationService);
+  searchService = inject(SearchService);
+
+  page = toSignal<number>(this.paginationService.page);
+  size = toSignal<number>(this.paginationService.size);
+  search = toSignal<string>(this.searchService.search);
+
+  recordsResource = rxResource({
+    params: () => {
+      return {
+        size: this.size(),
+        page: this.page(),
+        fullName: this.search(),
+      };
     },
-    {
-      id: "2",
-      timestamp: "15/01/2024 08:30:00",
-      name: "Ana Martínez",
-      type: "employee",
-      action: "check-in",
+    stream: ({ params: { size, page, fullName } }) => {
+      return this.checkInsService.getAllLogsUser(size!, page!, fullName!);
     },
-    {
-      id: "3",
-      timestamp: "14/01/2024 17:45:00",
-      name: "Dr. Fernando Castillo",
-      type: "guest",
-      action: "check-in",
-    },
-    {
-      id: "4",
-      timestamp: "14/01/2024 17:30:00",
-      name: "María García",
-      type: "employee",
-      action: "check-out",
-    },
-  ]
+  });
+
+  ngOnDestroy(): void {
+    this.paginationService.resetValues();
+    this.searchService.resetValue();
+  }
 }

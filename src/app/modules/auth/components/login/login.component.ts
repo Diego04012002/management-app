@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { AfterViewInit, Component, inject, signal } from '@angular/core';
 import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { login } from '../../../../interfaces/login.interface';
@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   imports: [ReactiveFormsModule],
   templateUrl: './login.component.html',
 })
-export class LoginComponent {
+export class LoginComponent implements AfterViewInit{
   authService=inject(AuthService)
   router = inject(Router);
   fb = inject(FormBuilder);
@@ -20,22 +20,25 @@ export class LoginComponent {
     password: ['', Validators.required]
   });
 
+  ngAfterViewInit(): void {
+    if(this.authService.user()){
+      this.router.navigateByUrl('/main/perfil')
+    }
+  }
 
   togglePassword() {
     this.showPassword.set(!this.showPassword())
   }
 
   onSubmit() {
-    console.log(this.loginForm.valid)
-    console.log(this.loginForm.value);
     const user:login = {
       email: this.loginForm.value.email ?? "",
       password: this.loginForm.value.password ?? ""
     }
     this.authService.login(user).subscribe(res => {
       if(res){
-        this.router.navigateByUrl('/main/perfil')
         console.log(res)
+        this.router.navigateByUrl('/perfil')
       }
     })
   }

@@ -6,6 +6,7 @@ import { InvitationManagementComponent } from './pages/invitation-management/inv
 import { CheckInSystemComponent } from './pages/checkin-system/checkin-system.component';
 import { AccessRecordsComponent } from './pages/access-records/access-records.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
+import { IsAuthenticatedGuard } from './modules/auth/guards/isAuthenticated.guard';
 
 export const routes: Routes = [
   {
@@ -15,27 +16,33 @@ export const routes: Routes = [
       {
         path: 'perfil',
         component: UserProfileComponent,
+        canMatch:[IsAuthenticatedGuard]
       },
       {
         path: 'empleados',
         loadChildren: () =>
           import('./pages/employee-management/employee.routes'),
+        canMatch:[IsAuthenticatedGuard]
       },
       {
         path: 'eventos',
         loadChildren: () => import('./pages/event-management/events.routes'),
+        canMatch:[IsAuthenticatedGuard]
       },
       {
         path: 'invitaciones',
         component: InvitationManagementComponent,
+        canMatch:[IsAuthenticatedGuard]
       },
       {
         path: 'checkinout',
         component: CheckInSystemComponent,
+        canMatch:[IsAuthenticatedGuard]
       },
       {
         path: 'registros',
         component: AccessRecordsComponent,
+        canMatch:[IsAuthenticatedGuard]
       },
       {
         path: '**',

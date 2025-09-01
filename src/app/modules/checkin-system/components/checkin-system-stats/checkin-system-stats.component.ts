@@ -1,5 +1,4 @@
 import { AfterViewInit, Component, inject, input } from '@angular/core';
-import { Employee } from '../../../../interfaces/employee.interface';
 import { LastCheckinUser } from '../../../../interfaces/lastCheckIn.interface';
 import { PaginationService } from '../../../../shared/services/pagination.service';
 import { Page, Pageable } from '../../../../interfaces/page.interface';
@@ -10,15 +9,10 @@ import { NumberChecksLogs } from '../../../../interfaces/numberChecksLogs.interf
   imports: [],
   templateUrl: './checkin-system-stats.component.html',
 })
-export class CheckinSystemStatsComponent implements AfterViewInit {
+export class CheckinSystemStatsComponent{
   paginationService = inject(PaginationService);
   employeesNumber = input.required<NumberChecksLogs>();
   pageContent = input<Page<LastCheckinUser>>();
 
   constructor() {}
-
-  ngAfterViewInit(): void {
-    this.paginationService.numberOfPagesNext =
-      this.pageContent()?.page.totalPages ?? 0;
-  }
 }

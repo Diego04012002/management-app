@@ -9,13 +9,14 @@
     <div class="flex flex-col sm:flex-row gap-6 items-center">
       <div class="flex-1">
         <p class="text-sm text-red-200 mb-2 font-medium">
-          <strong>Sesión activa:</strong> {{ user().name }}
+          <strong>Sesión activa:</strong> {{ user().fullName }}
         </p>
         <p class="text-xs text-red-300">
           Al cerrar sesión, serás redirigido a la página de login
         </p>
       </div>
       <button
+        (click)="logout()"
         class="bg-gradient-to-r from-white/10 to-white/20 border border-red-400 text-red-300 hover:bg-gradient-to-r hover:from-red-500/20 hover:to-rose-500/20 hover:border-red-300 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-200 min-w-[160px] h-12 font-bold flex items-center justify-center"
       >
         <svg

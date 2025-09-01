@@ -5,6 +5,7 @@ import { HeaderComponent } from '../../shared/components/header/header.component
 import { BackgroundAnimationComponent } from '../../shared/components/background-animation/background-animation.component';
 import { FooterComponent } from '../../shared/components/footer/footer.component';
 import { RouterOutlet } from '@angular/router';
+import { HeroComponent } from "../../shared/components/hero/hero.component";
 
 @Component({
   selector: 'app-main-page',
@@ -12,7 +13,7 @@ import { RouterOutlet } from '@angular/router';
     RouterOutlet,
     TabsComponent,
     StatsComponent,
-  ],
+],
   templateUrl: './main-page.component.html',
 })
 export class MainPageComponent {

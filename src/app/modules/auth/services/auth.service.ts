@@ -1,8 +1,9 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { login } from '../../../interfaces/login.interface';
 import { HttpClient } from '@angular/common/http';
-import { map, catchError, of } from 'rxjs';
+import { map, catchError, of, Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment.development';
+import { User } from '../../../interfaces/user.interface';
 type AuthStatus = 'checking' | 'authenticated' | 'not-authenticated';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -33,7 +34,7 @@ export class AuthService {
   });
 
   isAdmin = computed(() => {
-    return this._user()?.role == 'admin' ? true : false;
+    return this._user()?.role == 'ADMIN' ? true : false;
   });
 
   login(user: login) {
@@ -45,12 +46,33 @@ export class AuthService {
     );
   }
 
+  checkStatus(): Observable<boolean> {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      this.logout();
+      return of(false);
+    }
+
+    return this.http.get<boolean>(`${this.baseUrl}auth/isAuthorized`).pipe(
+      map((response:any) => {
+        return response.valid;
+      }),
+      catchError((error) => this.handleLogout(error))
+    );
+  }
+
+  getUserInformation():Observable<User>{
+    return this.http.get<User>(`${this.baseUrl}api/userInformation`)
+  }
+
   private handleLoginSuccess(response: any) {
+    console.log(response)
     this._authStatus.set('authenticated');
     this._token.set(response.token);
     this._user.set(response.user);
     localStorage.setItem('token', response.token);
     localStorage.setItem('user', JSON.stringify(response.user));
+    console.log(true)
     return true;
   }
 
@@ -59,6 +81,7 @@ export class AuthService {
     this._token.set(null);
     this._authStatus.set('not-authenticated');
     localStorage.removeItem('token');
+    localStorage.removeItem('user');
   }
 
   private handleLogout(error: any) {

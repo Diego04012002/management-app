@@ -1,9 +1,9 @@
 export interface User {
-  initials: string;
-  name: string;
-  position: string;
   email:string;
-  department:string;
+  fullName: string;
+  active:string
+  role:string;
   lastCheckIn:string;
   lastCheckOut:string;
+  department:string;
 }

@@ -13,5 +13,5 @@
     </div>
   </div>
 
-  <app-register-list [records]="records"/>
+  <app-register-list [records]="recordsResource.value()?.content!" [isLoading]="recordsResource.isLoading()"/>
 </div>

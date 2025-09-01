@@ -1,66 +1,42 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { LastCheckinUser } from '../../../../interfaces/lastCheckIn.interface';
+import { Page } from '../../../../interfaces/page.interface';
+import { rxResource, toSignal } from '@angular/core/rxjs-interop';
+import { CheckInService } from '../../../checkin-system/services/checkin.service';
+import { DatePipe, TitleCasePipe } from '@angular/common';
+import { PaginationComponent } from "../../../../shared/components/pagination/pagination.component";
+import { PaginationService } from '../../../../shared/services/pagination.service';
+import { SearchInputComponent } from "../../../../shared/components/search-input/search-input.component";
+import { SearchService } from '../../../../shared/services/search.service';
 
 @Component({
   selector: 'app-employee-list',
-  imports: [],
+  imports: [DatePipe, TitleCasePipe, PaginationComponent, SearchInputComponent],
   templateUrl: './employee-list.component.html',
 })
 export class EmployeeListComponent {
-  employees = [
-    {
-      name: 'Juan Pérez',
-      email: 'juan.perez@empresa.com',
-      department: 'Desarrollo',
-      position: 'Desarrollador Senior',
-      role: 'employee',
-      status: 'active',
-      lastCheckIn: '15/01/2024 09:00',
-      initials: 'JP',
+  checkInService = inject(CheckInService);
+  paginationService=inject(PaginationService)
+  searchService=inject(SearchService)
+  page = toSignal<number>(this.paginationService.page);
+  size = toSignal<number>(this.paginationService.size);
+  searchNext=toSignal<string>(this.searchService.search)
+
+  employeeResource = rxResource({
+    params: () => {
+      return {
+        page: this.page(),
+        size: this.size(),
+        fullName:this.searchNext()
+      };
     },
-    {
-      name: 'María García',
-      email: 'maria.garcia@empresa.com',
-      department: 'Marketing',
-      position: 'Gerente de Marketing',
-      role: 'employee',
-      status: 'active',
-      lastCheckIn: 'Nunca',
-      initials: 'MG',
+    stream: ({ params: { page, size, fullName } }) => {
+      return this.checkInService.getLastCheckInList(page!, size!, fullName!);
     },
-    {
-      name: 'Ana Martínez',
-      email: 'ana.martinez@empresa.com',
-      department: 'Recursos Humanos',
-      position: 'Gerente de RRHH',
-      role: 'admin',
-      status: 'active',
-      lastCheckIn: '15/01/2024 08:30',
-      initials: 'AM',
-    },
-    {
-      name: 'Carlos López',
-      email: 'carlos.lopez@empresa.com',
-      department: 'Desarrollo',
-      position: 'Desarrollador Frontend',
-      role: 'employee',
-      status: 'active',
-      lastCheckIn: '15/01/2024 09:15',
-      initials: 'CL',
-    },
-    {
-      name: 'Laura Rodríguez',
-      email: 'laura.rodriguez@empresa.com',
-      department: 'Ventas',
-      position: 'Ejecutiva de Ventas',
-      role: 'employee',
-      status: 'active',
-      lastCheckIn: '14/01/2024 18:00',
-      initials: 'LR',
-    },
-  ];
+  });
 
   getRoleBadgeClass(role: string) {
-    return role === 'admin'
+    return role === 'ADMIN'
       ? 'bg-gradient-to-r from-red-500 to-pink-500 text-white border-0'
       : 'bg-gradient-to-r from-blue-500 to-cyan-500 text-white border-0';
   }
@@ -69,13 +45,13 @@ export class EmployeeListComponent {
     return role === 'admin' ? 'Admin' : 'Empleado';
   }
 
-  getStatusBadgeClass(status: string) {
-    return status === 'active'
+  getStatusBadgeClass(action: string) {
+    return action=="CHECK_IN"
       ? 'bg-gradient-to-r from-green-500 to-emerald-500 text-white border-0'
       : 'bg-gradient-to-r from-gray-500 to-slate-500 text-white border-0';
   }
 
-  getStatusText(status: string) {
-    return status === 'active' ? 'Activo' : 'Inactivo';
+  getStatusText(action: string) {
+    return action === 'CHECK_IN' ? 'Activo' : 'Inactivo';
   }
 }

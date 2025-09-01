@@ -4,19 +4,16 @@
   >
     <!-- @for (item of tabList(); track $index) { -->
 
-    @if(numberPages()! >= 1){
-      @for (item of [].constructor(numberPages()); track $index) {
+      @for (item of numberPages(); track $index) {
         <button
-          (click)="changePage($index + 1)"
-          class="flex items-center justify-center px-4 py-3 gap-2 rounded-xl transition-all duration-300 text-slate-300 hover:text-white hover:bg-amber-200/50"
+          [class.bg-amber-200]="item === page()! || (page()==0 && item === 1)"
+          (click)="changePage(item)"
+          class="flex items-center justify-center px-4 py-3 gap-2 rounded-xl transition-all duration-300 text-slate-400 hover:text-white hover:bg-amber-200/50"
         >
-          {{$index + 1}}
+          {{item}}
         </button>
       }@empty {
-        <span class="text-white px-4 py-3">Cargando...</span>
+        <span class="text-white text-center px-4 py-3">No hay casos</span>
       }
-    } @else {
-      <span class="text-white px-4 py-3">Cargando...</span>
-    }
   </div>
 </div>

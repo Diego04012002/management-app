@@ -7,4 +7,6 @@ export interface LastCheckinUser {
   checkAction: string;
   checkSource: string;
   occuredAt: Date;
+  role:string
+  active:boolean
 }

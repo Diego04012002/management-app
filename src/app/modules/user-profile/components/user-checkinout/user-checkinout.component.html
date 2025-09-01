@@ -10,7 +10,8 @@
   <div class="p-6">
     <div class="flex flex-col sm:flex-row gap-6">
       <button
-        class="flex-1 bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white border-0 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-200 h-14 text-lg font-bold flex items-center justify-center"
+        [disabled]="isCheckIn()"
+        class="disabled:opacity-50 flex-1 bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white border-0 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-200 h-14 text-lg font-bold flex items-center justify-center"
       >
         <svg
           class="h-6 w-6 mr-3"
@@ -28,7 +29,8 @@
         Check-In Manual
       </button>
       <button
-        class="flex-1 bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-700 hover:to-rose-700 text-white border-0 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-200 h-14 text-lg font-bold flex items-center justify-center"
+        [disabled]="!isCheckIn()"
+        class="disabled:opacity-50 flex-1 bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-700 hover:to-rose-700 text-white border-0 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-200 h-14 text-lg font-bold flex items-center justify-center"
       >
         <svg
           class="h-6 w-6 mr-3"

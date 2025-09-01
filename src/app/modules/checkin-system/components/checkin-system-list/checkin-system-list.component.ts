@@ -1,46 +1,45 @@
 import {
-  AfterContentInit,
-  AfterRenderRef,
-  AfterViewChecked,
-  AfterViewInit,
   Component,
+  computed,
   inject,
   input,
-  OnInit,
+  OnDestroy,
   output,
-  ResourceRef,
   signal,
 } from '@angular/core';
-import { rxResource } from '@angular/core/rxjs-interop';
 import { CheckInService } from '../../services/checkin.service';
 import { DatePipe } from '@angular/common';
-import { CheckIn } from '../../../../interfaces/checkIn.interface';
 import { AuthService } from '../../../auth/services/auth.service';
 import { LastCheckinUser } from '../../../../interfaces/lastCheckIn.interface';
 import { PaginationComponent } from '../../../../shared/components/pagination/pagination.component';
-import { Page } from '../../../../interfaces/page.interface';
 import { SkeletonCheckinCardComponent } from '../../../../shared/components/skeleton-checkin-card/skeleton-checkin-card.component';
+import { PaginationService } from '../../../../shared/services/pagination.service';
+import { SearchInputComponent } from "../../../../shared/components/search-input/search-input.component";
+import { SearchService } from '../../../../shared/services/search.service';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-checkin-system-list',
-  imports: [DatePipe, PaginationComponent, SkeletonCheckinCardComponent],
+  imports: [DatePipe, PaginationComponent, SkeletonCheckinCardComponent, SearchInputComponent],
   templateUrl: './checkin-system-list.component.html',
 })
-export class CheckinSystemListComponent {
+export class CheckinSystemListComponent{
   checkInService = inject(CheckInService);
   authService = inject(AuthService);
-  adminUser = this.authService.user;
+  paginationService=inject(PaginationService)
+  searchService=inject(SearchService)
   employeesInput = input.required<LastCheckinUser[]>();
   isLoading = input.required<boolean>();
   isFirstLoad = signal<boolean>(true);
-  onUpdateEmployees = output<string>();
-
+  onUpdateEmployees = output();
+  search=toSignal(this.searchService.search)
+  currentLength=signal(10)
 
   changeStatus(id: number) {
     this.isFirstLoad.set(false);
     this.checkInService.checkIn(id).subscribe((data) => {
       if (data) {
-        this.onUpdateEmployees.emit('Change status');
+        this.onUpdateEmployees.emit();
       }
     });
   }
@@ -56,9 +55,9 @@ export class CheckinSystemListComponent {
   }
 
   getStatusText(status: string) {
-    if (status === 'CHECK_OUT') return 'Sin registro';
+    if (status === 'CHECK_OUT') return 'Fuera de oficina';
     if (status === 'CHECK_IN') return 'En oficina';
-    return 'Fuera de oficina';
+    return 'Sin registro';
   }
 
   getActionButtonClass(status: string) {
@@ -71,4 +70,7 @@ export class CheckinSystemListComponent {
   getActionText(status: string) {
     return status === 'CHECK_IN' ? 'Check-Out' : 'Check-In';
   }
+
+
+
 }

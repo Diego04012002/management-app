@@ -1,4 +1,11 @@
-import { Component, inject, input, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  inject,
+  input,
+  OnDestroy,
+  signal,
+} from '@angular/core';
 import { PaginationService } from '../../services/pagination.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 
@@ -7,20 +14,29 @@ import { toSignal } from '@angular/core/rxjs-interop';
   imports: [],
   templateUrl: './pagination.component.html',
 })
-export class PaginationComponent {
-  paginationService=inject(PaginationService)
-  numberPages = toSignal(this.paginationService.numberOfPages);
-  page=toSignal(this.paginationService.page)
-  size=toSignal(this.paginationService.size)
+export class PaginationComponent implements OnDestroy {
+  paginationService = inject(PaginationService);
+  signalNumberPages = toSignal(
+    this.paginationService.numberOfPages.asObservable(),
+    { initialValue: 0 }
+  );
 
-  example=signal(0)
+  numberPages = computed(() => {
+    const total = this.signalNumberPages();
 
-  constructor(){
+    const arr = Array.from({ length: total }, (_, i) => i + 1);
 
+    return total > 0 ? arr : [];
+  });
+
+  page = toSignal(this.paginationService.page);
+  size = toSignal(this.paginationService.size);
+
+  changePage(page: number) {
+    this.paginationService.pageNext = page;
   }
 
-  changePage(page:number){
-    this.example.update(value=>value+1)
-    this.paginationService.pageNext=this.example()
+  ngOnDestroy(): void {
+    this.numberPages();
   }
 }
