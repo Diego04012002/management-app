@@ -8,17 +8,17 @@
     class="grid bg-black/30 backdrop-blur-xl border border-white/20 rounded-2xl p-1.5 shadow-xl"
   >
     @for (item of tabList(); track $index) {
-    <button
-      [routerLinkActive]="item.class"
-      [routerLink]="[`/${item.path}`]"
-      class="flex items-center justify-center px-4 py-3 gap-2 rounded-xl transition-all duration-300 text-slate-300 hover:text-white"
-    >
-      @if(item.image){
-        <img [src]="`./assets/images/${item.image}`" [alt]="item.label" class="size-6"/>
+      <button
+        [routerLinkActive]="item.class"
+        [routerLink]="[`/${item.path}`]"
+        class="flex items-center justify-center px-4 py-3 gap-2 rounded-xl transition-all duration-300 text-slate-300 hover:text-white"
+      >
+        @if(item.image){
+          <img [src]="`./assets/images/${item.image}`" [alt]="item.label" class="size-6"/>
 
-      }
-      {{ item.label }}
-    </button>
+        }
+        {{ item.label }}
+      </button>
     }
   </div>
 </div>

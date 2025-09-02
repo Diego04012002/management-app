@@ -4,10 +4,16 @@
     <!-- <app-hero/> -->
 
     <!-- Estadísticas -->
-    <app-stats />
+     {{authService.isAdmin()}}
+    @if (authService.isAdmin()) {
+      <app-stats />
+    }
 
     <!-- Tabs -->
-    <app-tabs [tabList]="tabs" [isPrincipalHeader]="true" />
+    <app-tabs
+      [tabList]="authService.isAdmin() ? tabsAdmin : tabUser"
+      [isPrincipalHeader]="true"
+    />
 
     <div class="">
       <router-outlet />

@@ -22,6 +22,7 @@ export class UserProfileComponent {
       return this.authService.getUserInformation();
     },
     defaultValue: {
+      id: 0,
       email: '',
       fullName: '',
       active: '',
@@ -37,5 +38,11 @@ export class UserProfileComponent {
       new Date(this.userResource.value()?.lastCheckIn!) >
       new Date(this.userResource.value()?.lastCheckOut!)
     );
+  }
+
+  onCheckin(event:string){
+    if(event){
+      this.userResource.reload()
+    }
   }
 }

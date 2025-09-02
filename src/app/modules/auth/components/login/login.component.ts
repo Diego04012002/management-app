@@ -37,7 +37,6 @@ export class LoginComponent implements AfterViewInit{
     }
     this.authService.login(user).subscribe(res => {
       if(res){
-        console.log(res)
         this.router.navigateByUrl('/perfil')
       }
     })

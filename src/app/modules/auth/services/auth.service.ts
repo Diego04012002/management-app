@@ -4,13 +4,16 @@ import { HttpClient } from '@angular/common/http';
 import { map, catchError, of, Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment.development';
 import { User } from '../../../interfaces/user.interface';
+import { UserRegister } from '../../../interfaces/userRegister.interface';
 type AuthStatus = 'checking' | 'authenticated' | 'not-authenticated';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   http = inject(HttpClient);
   baseUrl = environment.baseUrl;
   private _authStatus = signal<AuthStatus>('checking');
-  private _user = signal<any | null>(localStorage.getItem('user'));
+  private _user = signal<User | null>(
+    localStorage.getItem('user') as User | null
+  );
   private _token = signal<string | null>(localStorage.getItem('token'));
 
   constructor() {}
@@ -25,7 +28,7 @@ export class AuthService {
     return 'not-authenticated';
   });
 
-  user = computed<any | null>(() => {
+  user = computed<User | null>(() => {
     return this._user();
   });
 
@@ -34,7 +37,13 @@ export class AuthService {
   });
 
   isAdmin = computed(() => {
-    return this._user()?.role == 'ADMIN' ? true : false;
+    const rawUser = this._user();
+
+    if (!rawUser) return false;
+
+    const user = typeof rawUser === 'string' ? JSON.parse(rawUser) : rawUser;
+
+    return user?.role === 'ADMIN';
   });
 
   login(user: login) {
@@ -46,6 +55,10 @@ export class AuthService {
     );
   }
 
+  register(employeeLike: Partial<UserRegister>) {
+    return this.http.post(`${this.baseUrl}auth/register`, employeeLike);
+  }
+
   checkStatus(): Observable<boolean> {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -54,25 +67,23 @@ export class AuthService {
     }
 
     return this.http.get<boolean>(`${this.baseUrl}auth/isAuthorized`).pipe(
-      map((response:any) => {
+      map((response: any) => {
         return response.valid;
       }),
       catchError((error) => this.handleLogout(error))
     );
   }
 
-  getUserInformation():Observable<User>{
-    return this.http.get<User>(`${this.baseUrl}api/userInformation`)
+  getUserInformation(): Observable<User> {
+    return this.http.get<User>(`${this.baseUrl}api/userInformation`);
   }
 
   private handleLoginSuccess(response: any) {
-    console.log(response)
     this._authStatus.set('authenticated');
     this._token.set(response.token);
     this._user.set(response.user);
     localStorage.setItem('token', response.token);
     localStorage.setItem('user', JSON.stringify(response.user));
-    console.log(true)
     return true;
   }
 

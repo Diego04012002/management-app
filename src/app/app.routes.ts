@@ -7,6 +7,7 @@ import { CheckInSystemComponent } from './pages/checkin-system/checkin-system.co
 import { AccessRecordsComponent } from './pages/access-records/access-records.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { IsAuthenticatedGuard } from './modules/auth/guards/isAuthenticated.guard';
+import { IsAdminGuard } from './modules/auth/guards/isAdmin.guard';
 
 export const routes: Routes = [
   {
@@ -22,27 +23,27 @@ export const routes: Routes = [
         path: 'empleados',
         loadChildren: () =>
           import('./pages/employee-management/employee.routes'),
-        canMatch:[IsAuthenticatedGuard]
+        canMatch:[IsAuthenticatedGuard, IsAdminGuard]
       },
       {
         path: 'eventos',
         loadChildren: () => import('./pages/event-management/events.routes'),
-        canMatch:[IsAuthenticatedGuard]
+        canMatch:[IsAuthenticatedGuard, IsAdminGuard]
       },
       {
         path: 'invitaciones',
         component: InvitationManagementComponent,
-        canMatch:[IsAuthenticatedGuard]
+        canMatch:[IsAuthenticatedGuard, IsAdminGuard]
       },
       {
         path: 'checkinout',
         component: CheckInSystemComponent,
-        canMatch:[IsAuthenticatedGuard]
+        canMatch:[IsAuthenticatedGuard, IsAdminGuard]
       },
       {
         path: 'registros',
         component: AccessRecordsComponent,
-        canMatch:[IsAuthenticatedGuard]
+        canMatch:[IsAuthenticatedGuard, IsAdminGuard]
       },
       {
         path: '**',

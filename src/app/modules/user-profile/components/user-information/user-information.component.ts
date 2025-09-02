@@ -1,10 +1,10 @@
 import { Component, input } from '@angular/core';
 import { User } from '../../../../interfaces/user.interface';
-import { DatePipe } from '@angular/common';
+import { DatePipe, NgClass, TitleCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-user-information',
-  imports: [DatePipe],
+  imports: [DatePipe, TitleCasePipe, NgClass],
   templateUrl: './user-information.component.html',
 })
 export class UserInformationComponent {

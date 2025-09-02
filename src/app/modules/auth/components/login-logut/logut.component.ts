@@ -13,11 +13,13 @@ export class LoginLogutComponent {
   authService = inject(AuthService)
   router=inject(Router)
 
+  changePassword(){
+    this.router.navigateByUrl("/auth/change-password")
+  }
 
 
   logout(){
     this.authService.logout()
-    console.log("logout")
     this.router.navigateByUrl("/auth/login")
   }
 }

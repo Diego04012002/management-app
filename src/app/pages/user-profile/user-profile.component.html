@@ -23,7 +23,7 @@
   </div>
 
   <!-- Check-In Manual -->
-  <app-user-checkinout [isCheckIn]="isCheckIn()"/>
+  <app-user-checkinout [isCheckIn]="isCheckIn()" [idUser]="userResource.value()!.id" (onCheckin)="onCheckin($event)"/>
 
   <!-- Logout Section -->
   <app-login-logut [user]="userResource.value()!" />

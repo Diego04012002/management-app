@@ -7,6 +7,7 @@ import { Page } from '../../../interfaces/page.interface';
 import { PaginationService } from '../../../shared/services/pagination.service';
 import { NumberChecksLogs } from '../../../interfaces/numberChecksLogs.interface';
 import { Record } from '../../../interfaces/record.interface';
+import { CheckLog } from '../../../interfaces/checkLog.interface';
 
 @Injectable({ providedIn: 'root' })
 export class CheckInService {
@@ -102,8 +103,12 @@ export class CheckInService {
     this.checkinSubject.next(events);
   }
 
-  checkIn(id: number) {
+  checkInAdmin(id: number):Observable<CheckLog> {
     this.newCheck = true;
-    return this.http.post(`${this.baseUrl}api/checkInByAdmin/${id}`, {});
+    return this.http.post<CheckLog>(`${this.baseUrl}api/checkInByAdmin/${id}`, {});
+  }
+
+  checkInYourself(id:number):Observable<CheckLog>{
+    return this.http.post<CheckLog>(`${this.baseUrl}api/checkInYourself/${id}`, {});
   }
 }

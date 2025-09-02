@@ -18,7 +18,7 @@ export const employeeRoute: Routes = [
       },
       {
         path: '**',
-        redirectTo: 'create',
+        redirectTo: 'list',
       },
     ],
   },

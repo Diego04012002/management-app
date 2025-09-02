@@ -37,7 +37,7 @@ export class CheckinSystemListComponent{
 
   changeStatus(id: number) {
     this.isFirstLoad.set(false);
-    this.checkInService.checkIn(id).subscribe((data) => {
+    this.checkInService.checkInAdmin(id).subscribe((data) => {
       if (data) {
         this.onUpdateEmployees.emit();
       }

@@ -17,42 +17,68 @@
     </svg>
     Registro de Nuevo Empleado
   </h3>
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-    <div>
-      <label class="block text-gray-300 font-medium mb-2">Nombre</label>
-      <input
-        type="text"
-        placeholder="Nombre completo"
-        class="w-full bg-white/10 border border-white/20 text-white placeholder:text-gray-400 focus:border-blue-400 focus:ring-blue-400/20 rounded-xl px-4 py-3"
-      />
+  <form class="flex flex-col gap-4" [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+    <div class="flex flex-row gap-4">
+      <div class="justify-self-center max-w-80 min-w-80">
+        <label class="block text-gray-300 font-medium mb-2">Nombre</label>
+        <input
+          type="text"
+          formControlName="fullName"
+          placeholder="Nombre completo"
+          class="w-full bg-white/10 border border-white/20 text-white placeholder:text-gray-400 focus:border-blue-400 focus:ring-blue-400/20 rounded-xl px-4 py-3"
+        />
+        @if(formUtils.isValidField(employeeForm, 'fullName')){
+          <span class="text-red-500">{{formUtils.getFieldError(employeeForm, 'fullName')}}</span>
+        }
+      </div>
+      <div class="justify-self-center max-w-70 min-w-70">
+        <label class="block text-gray-300 font-medium mb-2">Email</label>
+        <input
+          type="email"
+          formControlName="email"
+          placeholder="email@empresa.com"
+          class="w-full bg-white/10 border border-white/20 text-white placeholder:text-gray-400 focus:border-blue-400 focus:ring-blue-400/20 rounded-xl px-4 py-3"
+        />
+        @if(formUtils.isValidField(employeeForm, 'email')){
+          <span class="text-red-500">{{formUtils.getFieldError(employeeForm, 'email')}}</span>
+        }
+      </div>
+      <div class="max-w-70 min-w-70">
+        <label class="block text-gray-300 font-medium mb-2">Departamento</label>
+        <select
+          formControlName="department"
+          class="w-full bg-white/10 border border-white/20 text-white placeholder:text-gray-400 focus:border-blue-400 focus:ring-blue-400/20 rounded-xl px-4 py-3"
+        >
+          <option selected disabled class="text-black" [ngValue]="null">--Seleccione un departamento--</option>
+          @for (department of departmentResource.value()!; track $index) {
+            <option class="text-black" [ngValue]="department">{{department.name}}</option>
+          }
+        </select>
+        @if(formUtils.isValidField(employeeForm, 'department')){
+          <span class="text-red-500">{{formUtils.getFieldError(employeeForm, 'department')}}</span>
+        }
+      </div>
+      <div class="max-w-60 min-w-60">
+        <label class="block text-gray-300 font-medium mb-2">Rol</label>
+        <select
+          formControlName="role"
+          class="w-full bg-white/10 border border-white/20 text-white placeholder:text-gray-400 focus:border-blue-400 focus:ring-blue-400/20 rounded-xl px-4 py-3"
+        >
+          <option selected disabled class="text-black" [ngValue]="null">--Seleccione un rol--</option>
+          @for (role of roles | keyvalue; track $index) {
+            <option class="text-black" [ngValue]="role.key">{{role.value}}</option>
+          }
+        </select>
+        @if(formUtils.isValidField(employeeForm, 'role')){
+          <span class="text-red-500">{{formUtils.getFieldError(employeeForm, 'role')}}</span>
+        }
+      </div>
     </div>
-    <div>
-      <label class="block text-gray-300 font-medium mb-2">Email</label>
-      <input
-        type="email"
-        placeholder="email@empresa.com"
-        class="w-full bg-white/10 border border-white/20 text-white placeholder:text-gray-400 focus:border-blue-400 focus:ring-blue-400/20 rounded-xl px-4 py-3"
-      />
-    </div>
-    <div>
-      <label class="block text-gray-300 font-medium mb-2">Departamento</label>
-      <input
-        type="text"
-        placeholder="Departamento"
-        class="w-full bg-white/10 border border-white/20 text-white placeholder:text-gray-400 focus:border-blue-400 focus:ring-blue-400/20 rounded-xl px-4 py-3"
-      />
-    </div>
-    <div>
-      <label class="block text-gray-300 font-medium mb-2">Posición</label>
-      <input
-        type="text"
-        placeholder="Cargo"
-        class="w-full bg-white/10 border border-white/20 text-white placeholder:text-gray-400 focus:border-blue-400 focus:ring-blue-400/20 rounded-xl px-4 py-3"
-      />
-    </div>
-    <div class="flex items-end">
+    <div class="w-50">
       <button
-        class="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white border-0 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 px-6 py-3 font-medium flex items-center justify-center"
+        type="submit"
+        [disabled]="employeeForm.invalid"
+        class="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white border-0 disabled:opacity-50 disabled:cursor-not-allowed rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 px-6 py-3 font-medium flex items-center justify-center"
       >
         <svg
           class="h-4 w-4 mr-2"
@@ -70,5 +96,5 @@
         Agregar
       </button>
     </div>
-  </div>
+  </form>
 </div>
