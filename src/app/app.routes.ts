@@ -1,15 +1,18 @@
 import { Routes } from '@angular/router';
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
-import { EmployeeManagementComponent } from './pages/employee-management/employee-management.component';
-import { EventManagementComponent } from './pages/event-management/event-management.component';
 import { InvitationManagementComponent } from './pages/invitation-management/invitation-management.component';
 import { CheckInSystemComponent } from './pages/checkin-system/checkin-system.component';
 import { AccessRecordsComponent } from './pages/access-records/access-records.component';
-import { MainPageComponent } from './pages/main-page/main-page.component';
+import { MainPageComponent } from './pages/main-management-page/main-management-page.component';
 import { IsAuthenticatedGuard } from './modules/auth/guards/isAuthenticated.guard';
 import { IsAdminGuard } from './modules/auth/guards/isAdmin.guard';
+import { WelcomePageComponent } from './pages/welcome-page/welcome-page.component';
 
 export const routes: Routes = [
+  {
+    path:"welcome",
+    component:WelcomePageComponent,
+  },
   {
     path: 'main',
     component: MainPageComponent,

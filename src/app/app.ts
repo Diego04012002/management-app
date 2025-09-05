@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { BackgroundAnimationComponent } from './shared/components/background-animation/background-animation.component';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
+import Notiflix from 'notiflix';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,11 @@ import { FooterComponent } from './shared/components/footer/footer.component';
   ],
 })
 export class App {
-  constructor() {}
+  constructor() {
+    Notiflix.Notify.init({
+      position: 'right-bottom',
+    });
+  }
 
   tabs = [
     {

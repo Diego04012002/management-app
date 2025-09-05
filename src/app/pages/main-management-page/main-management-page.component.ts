@@ -12,15 +12,9 @@ import Notiflix from 'notiflix';
 @Component({
   selector: 'app-main-page',
   imports: [RouterOutlet, TabsComponent, StatsComponent],
-  templateUrl: './main-page.component.html',
+  templateUrl: './main-management-page.component.html',
 })
 export class MainPageComponent {
-
-  constructor(){
-    Notiflix.Notify.init({
-      position:"right-bottom"
-    })
-  }
 
   authService=inject(AuthService)
 

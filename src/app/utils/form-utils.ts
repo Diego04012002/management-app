@@ -1,6 +1,6 @@
-import { AbstractControl, FormGroup, ValidationErrors } from "@angular/forms";
+import { AbstractControl, FormGroup, ValidationErrors } from '@angular/forms';
 
-export class FormUtils{
+export class FormUtils {
   // static fullNameRefex ='^[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(?:s[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+)?s[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+s[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+$'
   static getTextError(errors: ValidationErrors) {
     for (const key of Object.keys(errors)) {
@@ -21,9 +21,9 @@ export class FormUtils{
         case 'notEqualPassword':
           return 'Las contraseñas no coinciden';
         case 'emailTaken':
-          return 'El email ya esta registrado'
+          return 'El email ya esta registrado';
         case 'isFullname':
-          return 'Debe tener nombre y apellidos'
+          return 'Debe tener nombre y apellidos';
         default:
           return `Error de validacion no controlado ${key}`;
       }
@@ -43,15 +43,35 @@ export class FormUtils{
     return this.getTextError(errors);
   }
 
-  static notPropertyFullName(control:AbstractControl):ValidationErrors | null{
-    if(control.value==null) return null
-    const value=control.value;
-    const parts=value.trim().split(' ')
-    if(parts.length>=3 && parts.length<5){
-      return null
+  static isValidFormGroup(myForm: FormGroup) {
+    return myForm.errors && myForm.touched;
+  }
+
+  static getFieldErrorFormGroup(myForm: FormGroup) {
+    const errors = myForm.errors ?? {};
+    return this.getTextError(errors);
+  }
+
+  static notPropertyFullName(
+    control: AbstractControl
+  ): ValidationErrors | null {
+    if (control.value == null) return null;
+    const value = control.value;
+    const parts = value.trim().split(' ');
+    if (parts.length >= 3 && parts.length < 5) {
+      return null;
     }
     return {
-      isFullname:true
-    }
+      isFullname: true,
+    };
+  }
+
+  static isFieldOneEqualsFieldTwo(field1: string, field2: string) {
+    return (formGroup: AbstractControl) => {
+      const fieldValue1 = formGroup.get(field1)?.value;
+      const fieldValue2 = formGroup.get(field2)?.value;
+      if (fieldValue2 === '') return;
+      return fieldValue1 === fieldValue2 ? null : { notEqualPassword: true };
+    };
   }
 }

@@ -5,11 +5,17 @@ import { map, catchError, of, Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment.development';
 import { User } from '../../../interfaces/user.interface';
 import { UserRegister } from '../../../interfaces/userRegister.interface';
+import { ChangePassword } from '../../../interfaces/changePassword.interface';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
+
 type AuthStatus = 'checking' | 'authenticated' | 'not-authenticated';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   http = inject(HttpClient);
   baseUrl = environment.baseUrl;
+  supabase!: SupabaseClient;
+  environment = environment;
+
   private _authStatus = signal<AuthStatus>('checking');
   private _user = signal<User | null>(
     localStorage.getItem('user') as User | null
@@ -17,6 +23,10 @@ export class AuthService {
   private _token = signal<string | null>(localStorage.getItem('token'));
 
   constructor() {}
+
+  createSupabaseClient(){
+    return createClient(environment.urlSupabase, environment.anonKey);
+  }
 
   authStatus = computed<AuthStatus>(() => {
     if (this._authStatus() === 'checking') {
@@ -29,7 +39,12 @@ export class AuthService {
   });
 
   user = computed<User | null>(() => {
-    return this._user();
+    const rawUser = this._user();
+
+    if (!rawUser) return false;
+
+    const user = typeof rawUser === 'string' ? JSON.parse(rawUser) : rawUser;
+    return user;
   });
 
   token = computed<string | null>(() => {
@@ -55,6 +70,10 @@ export class AuthService {
     );
   }
 
+  changePassword(changePassword: ChangePassword) {
+    return this.http.post(`${this.baseUrl}auth/changePassword`, changePassword);
+  }
+
   register(employeeLike: Partial<UserRegister>) {
     return this.http.post(`${this.baseUrl}auth/register`, employeeLike);
   }
@@ -72,6 +91,10 @@ export class AuthService {
       }),
       catchError((error) => this.handleLogout(error))
     );
+  }
+
+  countUser(){
+    return this.http.get<number>(`${this.baseUrl}api/countUser`);
   }
 
   getUserInformation(): Observable<User> {

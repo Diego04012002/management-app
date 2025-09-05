@@ -69,6 +69,10 @@ export class CheckInService {
       );
   }
 
+  getCountUserWithCheckIn(){
+    return this.http.get<number>(`${this.baseUrl}api/getCountUserWithCheckIn`);
+  }
+
   getAllLogsUser(size: number, page: number, fullName:string): Observable<Page<Record>> {
     if (page == 0) {
       page = 0;
@@ -110,5 +114,9 @@ export class CheckInService {
 
   checkInYourself(id:number):Observable<CheckLog>{
     return this.http.post<CheckLog>(`${this.baseUrl}api/checkInYourself/${id}`, {});
+  }
+
+  countCheckLogsCurrent(){
+    return this.http.get<number>(`${this.baseUrl}api/countCheckLogsCurrent`);
   }
 }

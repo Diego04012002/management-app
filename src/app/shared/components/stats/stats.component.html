@@ -28,7 +28,7 @@
         ></div>
       </div>
     </div>
-    <div class="text-3xl font-bold text-white mb-2">247</div>
+    <div class="text-3xl font-bold text-white mb-2">{{subCountUserListener() == 0 ? subCountUser() : subCountUserListener()}}</div>
     <p class="text-xs text-blue-300 mb-3">Registrados en sistema</p>
     <div class="flex items-center">
       <svg
@@ -79,7 +79,7 @@
         ></div>
       </div>
     </div>
-    <div class="text-3xl font-bold text-white mb-2">189</div>
+    <div class="text-3xl font-bold text-white mb-2">{{subCountChekInCurrentListener() == 0 ? subCountCheckInCurrent() : subCountChekInCurrentListener()}}</div>
     <p class="text-xs text-emerald-300 mb-3">En oficina hoy</p>
     <div class="flex items-center">
       <svg
@@ -128,7 +128,7 @@
         ></div>
       </div>
     </div>
-    <div class="text-3xl font-bold text-white mb-2">342</div>
+    <div class="text-3xl font-bold text-white mb-2">{{subCountCheckLogListener() == 0 ? subCountCheckLog() : subCountCheckLogListener()}}</div>
     <p class="text-xs text-amber-300 mb-3">Registros de hoy</p>
     <div class="flex items-center">
       <svg
